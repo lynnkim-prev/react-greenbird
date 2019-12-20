@@ -1,2 +1,2 @@
 # Sandbox
-Repository location where all student work that is not to be marked should go
+Repository location where students should place work as they progress through self-directed training materials
