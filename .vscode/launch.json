@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/[folder_name]\\[file_name].js",
+            "program": "${workspaceFolder}\\[folder_name]\\[file_name].js",
             "console": "externalTerminal"
         }
     ]
