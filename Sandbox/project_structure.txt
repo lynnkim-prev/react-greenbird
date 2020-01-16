@@ -1,0 +1,43 @@
+1. Outcome: 
+  Nodebird(twitter-like page)
+
+
+2. Skills: 
+
+  eslint (coding style)
+
+  1) Front Server
+  (화면 렌더링, 검색엔진 최적화)
+  React(hooks), Next
+  Redux
+  Redux-saga
+  Styled Components
+  Node - 서버가 아니라, 자바스크립트 실행기임. 
+
+----API Request---->
+
+  2) Backend Server
+  (데이터 처리, DB연동)
+  Express
+  DB(MySQL)
+  ORM(Sequelize)
+  Passport
+  multer(S3)
+  Socket.IO (realtime direct message)
+  Lambda (image compression)
+
+
+--------------------
+3. Why Next? 
+
+  1) SEO를 위해서. 
+  single page application - react, angular, vue .. Search engine issue.
+  검색이 잘 안됨. 
+  그래서 react에서 나온 것이 server-side rendering. 
+  검색 봇이 볼 수 있게 서버사이드 렌더링 해주는 것을 next가 쉽게 해준다. (vue는 nuxt) 
+
+  2) code splitting
+  필요한 페이지만 불러오는 기술.
+
+
+

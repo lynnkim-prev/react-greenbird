@@ -1,0 +1,21 @@
+{
+  "parserOptions":  {
+    "ecmaVersion": 2018,
+    "sourceType": "module", /* import, export, require */
+    "ecmaFeatures": {
+      "jsx": true /* jsx가 html이나 xml쓰면 안된다는거 허용해주기 */
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",/* eslint가 추천하는 코딩스타일을 쓰기 */
+    "plugin:react/recommended"
+  ],
+  "plugins": [/* eslint가 기본적으로 react hooks, import export등을 지원하지 않기 때문에 지원하기 위해서 플러그인 설치*/
+    "import",
+    "react-hooks"
+  ]
+}

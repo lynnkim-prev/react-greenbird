@@ -1,0 +1,21 @@
+ch1/front/
+
+시작 명령어: 
+  npm run dev / npm run build / npm run start(배포)
+  run dev하면, 프론트 리액트를 웹팩으로 번들링 해주면서 서버로도 제공을 해준다. 
+
+package.json설치
+  $npm init 
+
+react react-dom next 설치
+  $npm i react react-dom next
+
+nodemon, webpack 설치
+  $npm i -D nodemon webpack
+
+eslint 설치
+  $npm i -D eslint
+  (.eslintrc에 코딩스타일 설정)
+
+eslint plugin설치
+  $npm i -D eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks
