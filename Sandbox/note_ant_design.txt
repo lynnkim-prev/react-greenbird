@@ -1,0 +1,8 @@
+ant design
+
+  https://ant.design/docs/react/introduce
+  개발자 페이지 같은거 만들때 유용. 
+  코드가 리액트로 되어있다.(angular, vue도 있음)
+
+  여기에서 커버안되는 부분은 styled component를 사용할 것. 
+  앤트디자인 + styled component를 같이 디자인해줄 수 있다. 같이 맞물려 돌아감

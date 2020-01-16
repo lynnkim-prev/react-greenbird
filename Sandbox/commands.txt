@@ -19,3 +19,6 @@ eslint 설치
 
 eslint plugin설치
   $npm i -D eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks
+
+ant design 설치
+  $npm i antd

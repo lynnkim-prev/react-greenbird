@@ -13,6 +13,7 @@
   Redux-saga
   Styled Components
   Node - 서버가 아니라, 자바스크립트 실행기임. 
+  ant design (실무: bootstrap, sementic UI, material design, ant design-개발자 페이지. 코드가 리액트다)
 
 ----API Request---->
 
