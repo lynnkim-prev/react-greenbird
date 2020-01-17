@@ -1,6 +1,6 @@
 {
   "parserOptions":  {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2019,
     "sourceType": "module", /* import, export, require */
     "ecmaFeatures": {
       "jsx": true /* jsx가 html이나 xml쓰면 안된다는거 허용해주기 */
