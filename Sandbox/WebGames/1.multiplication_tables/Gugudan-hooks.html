@@ -9,10 +9,45 @@
 <body>
   <div id="root"></div>
   <script type="text/babel">
+    const GuGuDan = () => {
+      const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+      const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
+      const [value, setValue] = React.useState('');
+      const [result, setResult] = React.useState('');
+      const inputRef = React.useRef(null);
+
+      const onSubmitForm = (e) => {
+        e.preventDefault();
+        if( parseInt(value) === first * second){
+          setResult('정답쓰 ' + value);
+          setValue('');
+          inputRef.current.focus();
+        } else {
+          setResult('틀렸으');
+          setValue('');
+          inputRef.current.focus();
+        }
+      }
+
+      const onChangeInput = (e) => {
+        setValue(e.target.value)
+      }
+
+      return (
+        <>
+          <div>{ first }  * { second } ?</div>
+          <form onSubmit = {onSubmitForm}>
+            <input ref={inputRef} value = {value} onChange = {onChangeInput}/>
+            <button type="submit">submit</button>
+          </form>
+          <div>{ result }</div>
+        </>
+      )
+    }
 
   </script>
   <script type="text/babel">
-    ReactDOM.render(<div><GuGuDan /><GuGuDan /><GuGuDan /></div>, document.querySelector('#root'));
+    ReactDOM.render(<div><GuGuDan /></div>, document.querySelector('#root'));
   </script>
 </body>
 
