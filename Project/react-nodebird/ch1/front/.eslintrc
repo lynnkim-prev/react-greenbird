@@ -1,7 +1,7 @@
 {
-  "parserOptions":  {
+  "parserOptions": {
     "ecmaVersion": 2019,
-    "sourceType": "module", /* import, export, require */
+    "sourceType": "module" /* import, export, require */,
     "ecmaFeatures": {
       "jsx": true /* jsx가 html이나 xml쓰면 안된다는거 허용해주기 */
     }
@@ -12,10 +12,16 @@
   },
   "extends": [
     "eslint:recommended",/* eslint가 추천하는 코딩스타일을 쓰기 */
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "react-app"
   ],
-  "plugins": [/* eslint가 기본적으로 react hooks, import export등을 지원하지 않기 때문에 지원하기 위해서 플러그인 설치*/
+  "plugins": [
+    /* eslint가 기본적으로 react hooks, import export등을 지원하지 않기 때문에 지원하기 위해서 플러그인 설치*/
     "import",
-    "react-hooks"
-  ]
+    "react-hooks",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  }
 }
