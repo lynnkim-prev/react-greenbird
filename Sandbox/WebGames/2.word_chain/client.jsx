@@ -7,3 +7,4 @@ const WordRelay = require('./WordRelay'); /* 필요한것만 가져올 수 있�
 const Hot = hot(WordRelay);
 
 ReactDom.render(<Hot />, document.querySelector("#root"));
+
