@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState, useRef, memo }  from 'react';
 import Try from "./Try";
 
 const getNumbers = () => { // 숫자 네개를 랜덤하게 뽑는 함수. 
@@ -12,11 +12,12 @@ const getNumbers = () => { // 숫자 네개를 랜덤하게 뽑는 함수.
 }
 
 
-const NumberBaseball = () => {
+const NumberBaseball = memo(() => {
   const [answer, setAnswer] = useState(getNumbers());
   const [value, setValue] = useState("");
   const [result, setResult] = useState("");
   const [tries, setTries] = useState([]);
+  const inputEl = useRef(null);
 
 
   const onSubmitForm = (e) => {
@@ -34,6 +35,7 @@ const NumberBaseball = () => {
       setValue("");
       setAnswer(getNumbers());
       setTries([]);
+      inputEl.current.focus()
     } else {
       const answerArray = value.split("").map(v => parseInt(v));
       let strike = 0;
@@ -44,6 +46,7 @@ const NumberBaseball = () => {
         setValue("");
         setAnswer(getNumbers());
         setTries([]);
+        inputEl.current.focus();
       } else  {
         for (let i = 0; i < 4; i += 1) {
           if (answerArray[i] === answer[i]) {
@@ -62,6 +65,7 @@ const NumberBaseball = () => {
             }
           ]);
         setValue("");
+        inputEl.current.focus();
       }
     }
   };
@@ -71,7 +75,7 @@ const NumberBaseball = () => {
       <h1>{result}</h1>
       <form onSubmit={onSubmitForm}>
         <input
-          // ref={inputEl}
+          ref={inputEl}
           maxLength={4}
           value={value}
           onChange={e => setValue(e.target.value)}
@@ -86,5 +90,5 @@ const NumberBaseball = () => {
       </ul>
     </>
   );
-};
+});
 export default NumberBaseball;
