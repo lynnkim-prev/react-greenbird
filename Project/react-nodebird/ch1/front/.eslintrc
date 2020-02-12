@@ -11,7 +11,7 @@
     "node": true
   },
   "extends": [
-    "eslint:recommended",/* eslint가 추천하는 코딩스타일을 쓰기 */
+    "eslint:recommended" /* eslint가 추천하는 코딩스타일을 쓰기 */,
     "plugin:react/recommended",
     "react-app"
   ],
