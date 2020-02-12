@@ -91,7 +91,7 @@ class NumberBaseball extends Component {
     });
   };
 
-  inputRef = createRef();
+  inputRef = createRef(); // this.inputRef 를 생성해주는 것. 개체 속성을 생성. 렌더링 안되는것. 나중에 써먹으려구
 
   render() {
     return (
