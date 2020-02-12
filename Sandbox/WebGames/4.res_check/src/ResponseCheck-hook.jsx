@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const ResponseCheck = () => {
-  const [state, setState] = useState('waiting');
-  const [message, setMessage] = useState('클릭해서 시작하세용');
+  const [state, setState] = useState("waiting");
+  const [message, setMessage] = useState("클릭해서 시작하세용");
   const [result, setResult] = useState([]);
 
   timeout;
@@ -10,29 +10,29 @@ const ResponseCheck = () => {
   endTime;
 
   onClickScreen = () => {
-    if (state === 'waiting') {
-      setState('ready');
-      setMessage('기다렸다가 초록색되면 클릭 ㄲㄱ');
+    if (state === "waiting") {
+      setState("ready");
+      setMessage("기다렸다가 초록색되면 클릭 ㄲㄱ");
       this.timeout = setTimeout(() => {
-        setState('now');
-        setMessage('지금 클릭 ㄲ');
+        setState("now");
+        setMessage("지금 클릭 ㄲ");
         this.startTime = new Date();
       }, Math.floor(Math.random() * 1000) + 2000); // 2~3초 랜덤
-    } else if (state === 'ready') {
-      console.log('땡!!');
+    } else if (state === "ready") {
+      console.log("땡!!");
       clearTimeout(this.timeout); // Timeout 초기화. 없으면 땡인데도 2~3초 랜덤 먹음
-      setState('waiting');
-      setMessage('성급했어요ㅉㅉ 다시 클릭해서 시작하시죠??');
+      setState("waiting");
+      setMessage("성급했어요ㅉㅉ 다시 클릭해서 시작하시죠??");
       setResult([]);
-    } else if (state === 'now') {
+    } else if (state === "now") {
       this.endTime = new Date();
-      setState('waiting');
-      setMessage('잘했어요 클릭해서 또 시작하세요!');
+      setState("waiting");
+      setMessage("잘했어요 클릭해서 또 시작하세요!");
       setResult(prevState => [
         ...prevState.result,
-        this.endtime - this.startTime,
+        this.endtime - this.startTime
       ]);
-      console.log('굿잡');
+      console.log("굿잡");
     }
   };
 
