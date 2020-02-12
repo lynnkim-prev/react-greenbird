@@ -1,77 +1,50 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class ResponseCheck extends Component {
   state = {
-    state: 'waiting',
-    message: '클릭해서 시작하세요.',
-    result: [],
+    state: 'waiting', // blue
+    message: '클릭해서 시작하세요',
+    result: []
   };
-
-  timeout;
-  startTime;
-  endTime;
-
+// waiting(blue - 클릭해서 시작하세요) 클릭 -> ready (red - 초록색 되면 클릭하세요 ) -> 2~3초 후 -> now (green - 지금 클릭하세요) 
   onClickScreen = () => {
-    const { state } = this.state;
+    const {state, message, result} = this.state;
     if (state === 'waiting') {
-      timeout.current = setTimeout(() => {
+      this.setState({
+        state: 'ready', // red
+        message: '초록색되면 클릭하세요',
+      });
+      setTimeout(() => {
         this.setState({
-          state: 'now',
-          message: '지금 클릭',
+          state: "now", // green
+          message: "지금 클릭 ㄱㄲㄱ"
         });
-        this.startTime = new Date();
-      }, Math.floor(Math.random() * 1000) + 2000); // 2초~3초 랜덤
-      this.setState({
-        state: 'ready',
-        message: '초록색이 되면 클릭하세요.',
-      });
-    } else if (state === 'ready') { // 성급하게 클릭
-      clearTimeout(this.timeout);
-      this.setState({
-        state: 'waiting',
-        message: '너무 성급하시군요! 초록색이 된 후에 클릭하세요.',
-      });
-    } else if (state === 'now') { // 반응속도 체크
-      endTime.current = new Date();
-      this.setState((prevState) => {
-        return {
-          state: 'waiting',
-          message: '클릭해서 시작하세요.',
-          result: [...prevState.result, this.endTime, this.startTime],
-        };
-      });
+      }, Math.floor(Math.random() * 1000) + 2000); // 2~3초 랜덤
     }
   };
 
-  onReset = () => {
-    this.setState({
-      result: [],
-    });
+  renderAverage = () => {
+    const { result } = this.state; // 구조분해 !
+    return result.length === 0 ? null : ( // 삼항연산자. result가 없어서 array에 보여줄게 없을 때 null로 처리해서 안보이게 함
+      <div>
+        평균시간:
+        {result.reduce((a, c) => a + c) / result.length}
+        ms
+      </div>
+    );
   };
 
-  renderAverage = () => {
-    const {result} = this.state;
-    return result.length === 0
-      ? null
-      : <>
-        <div>평균 시간: {result.reduce((a, c) => a + c) / result.length}ms</div>
-        <button onClick={this.onReset}>리셋</button>
-      </>
-  };
   render() {
     const { state, message } = this.state;
     return (
       <>
-        <div
-          id="screen"
-          className={state}
-          onClick={this.onClickScreen}
-        >
+        <div id="screen" className={state} onClick={this.onClickScreen}>
           {message}
         </div>
         {this.renderAverage()}
       </>
-    )
+    );
   }
 }
+
 export default ResponseCheck;
