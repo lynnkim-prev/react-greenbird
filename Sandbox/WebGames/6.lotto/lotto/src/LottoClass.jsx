@@ -1,9 +1,5 @@
-import { Component } from "react";
-
-class Lotto extends Component() {}
-
-export default Lotto;
 import React, { Component } from "react";
+import Ball from "./Ball";
 
 function getWinNumbers() {
   console.log("getWinNumbers");
@@ -57,6 +53,22 @@ class Lotto extends Component {
     console.log("로또 숫자를 생성합니다.");
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log("didUpdate");
+    if (this.state.winBalls.length === 0) {
+      this.runTimeouts();
+    }
+    if (prevState.winNumbers !== this.state.winNumbers) {
+      console.log("로또 숫자를 생성합니다.");
+    }
+  }
+
+  componentWillUnmount() {
+    this.timeouts.forEach(v => {
+      clearTimeout(v);
+    });
+  }
+
   onClickRedo = () => {
     console.log("onClickRedo");
     this.setState({
@@ -74,7 +86,9 @@ class Lotto extends Component {
       <>
         <div>당첨 숫자</div>
         <div id="결과창">
-
+          {winBalls.map(v => (
+            <Ball key={v} number={v} />
+          ))}
         </div>
         <div>보너스!</div>
         {bonus && <Ball number={bonus} />}
@@ -83,4 +97,5 @@ class Lotto extends Component {
     );
   }
 }
+
 export default Lotto;
