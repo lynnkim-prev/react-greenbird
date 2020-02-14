@@ -5,7 +5,7 @@ const ResponseCheck = () => {
   const [message, setMessage] = useState("클릭해서 시작하세용");
   const [result, setResult] = useState([]);
   const timeout = useRef(null);
-  const startTime = useRef(); // 화면을 바꾸고 싶지는 않은데, 값이 바뀌는 것들, 무조건 current로 접근해야 한다
+  const startTime = useRef(); // 화면을 바꾸고 싶지는 않은데, 값이 바뀌는 것들, 무조건 current로 접근해야 한다. 화면에는 영향을 주지 않는 것
   const endTime = useRef();
 
   const onClickScreen = () => {
@@ -45,6 +45,8 @@ const ResponseCheck = () => {
     );
   };
 
+  // 리액트에서 {}하면 자바스크립트 언어를 쓸 수 있는데,
+  // jsx안에서는 if를 못쓰지만 함수 안에서는 쓸 수 있으니까..
   return (
     <>
       <div id="screen" className={state} onClick={onClickScreen}>
