@@ -105,8 +105,7 @@ class RPC extends Component {
           <button
             id="scissor"
             className="btn"
-            onClick={this.onClickBtn("가위")}
-          >
+            onClick={this.onClickBtn("가위")}>
             가위
           </button>
           <button id="paper" className="btn" onClick={this.onClickBtn("보")}>
