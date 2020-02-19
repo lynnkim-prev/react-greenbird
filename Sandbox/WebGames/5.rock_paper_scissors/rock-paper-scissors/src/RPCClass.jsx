@@ -23,14 +23,18 @@ const scores = {
   paper: -1,
 };
 
+const computerChoice = imgCoord => {
+  return Object.entries(rspCoords).find(function(v) {
+    return v[1] === imgCoord;
+  })[0];
+};
+
 class RPC extends Component {
   state = {
     result: '',
     imgCoord: '0',
     score: 0,
   };
-
-  interval;
 
   // 컴포넌트가 첫 렌더링 된 후. 렌더가 성공적으로 실행됐다면 그 다음에 실행된다. (after render successfully performed,)
   // 여기에 비동기 요청을 많이 해요.
@@ -39,28 +43,11 @@ class RPC extends Component {
   // setTimeout, setInterval같은거 메모리 계속 차다가 터진다.
   // 따라서 완료되지 않은 비동기 요청같은건 unmount에서 정리해줘야된다. 짝으로 쓰면 됨! componentDidMount - componentWillUnmount를 짝으로 쓰자.
 
+  interval;
   componentDidMount() {
     // rock -> scissor -> paper 로 돌려주기
-    this.interval = setInterval(() => {
-      const { imgCoord } = this.state; // closure문제 때문에 변수를 안에 선언
-      if (imgCoord === rspCoords.rock) {
-        this.setState({
-          imgCoord: rspCoords.scissor,
-        });
-      } else if (imgCoord === rspCoords.scissor) {
-        this.setState({
-          imgCoord: rspCoords.paper,
-        });
-      } else if (imgCoord === rspCoords.paper) {
-        this.setState({
-          imgCoord: rspCoords.rock,
-        });
-      }
-    }, 1000);
+    this.interval = setInterval(this.changeHand, 200);
   }
-
-  // 리렌더링 (setState / props가 바뀌었을 때)
-  componentDidUpdate() {}
 
   // 컴포넌트가 제거되기 직전. 부모가 나 컴퍼넌트를 없앴을 때 remove comp
   // 비동기 요청 정리를 많이 해요.
@@ -68,7 +55,52 @@ class RPC extends Component {
     clearInterval(this.interval);
   }
 
-  onClickBtn = choice => {};
+  changeHand = () => {
+    const { imgCoord } = this.state; // closure문제 때문에 변수를 안에 선언
+    if (imgCoord === rspCoords.rock) {
+      this.setState({
+        imgCoord: rspCoords.scissor,
+      });
+    } else if (imgCoord === rspCoords.scissor) {
+      this.setState({
+        imgCoord: rspCoords.paper,
+      });
+    } else if (imgCoord === rspCoords.paper) {
+      this.setState({
+        imgCoord: rspCoords.rock,
+      });
+    }
+  };
+
+  onClickBtn = choice => {
+    const { imgCoord } = this.state;
+    clearInterval(this.interval);
+    const myScore = scores[choice];
+    const cpuScore = scores[computerChoice(imgCoord)];
+    const diff = myScore - cpuScore;
+    if (diff === 0) {
+      this.setState({
+        result: 'draw! 비겼다',
+      });
+    } else if ([-1, 2].includes(diff)) {
+      this.setState(prevState => {
+        return {
+          result: 'you won! 당신 이겼다',
+          score: prevState.score + 1,
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        return {
+          result: 'you lose! 당신 졌다',
+          score: prevState.score - 1,
+        };
+      });
+    }
+    setTimeout(() => {
+      this.interval = setInterval(this.changeHand, 200);
+    }, 2000);
+  };
 
   render() {
     const { imgCoord, result, score } = this.state;
