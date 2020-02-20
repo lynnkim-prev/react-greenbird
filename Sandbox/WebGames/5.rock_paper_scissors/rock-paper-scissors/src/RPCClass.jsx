@@ -11,6 +11,7 @@ import React, { Component } from 'react';
 // -> (setState/props 바뀔 때) -> shouldComponentUpdate(true) -> render -> componentDidUpdate
 // 부모가 나를 없앴을 때 -> componentWillUnmount -> 소멸
 
+// state로 안쓰이는 것들은 밖으로 빼내주면 편하다. class에 너무 많은걸 묶으려 하지 마세요
 const rspCoords = {
   rock: '0',
   scissor: '-142px',
@@ -32,7 +33,7 @@ const computerChoice = imgCoord => {
 class RPC extends Component {
   state = {
     result: '',
-    imgCoord: '0',
+    imgCoord: rspCoords.rock,
     score: 0,
   };
 
@@ -72,7 +73,8 @@ class RPC extends Component {
     }
   };
 
-  onClickBtn = choice => {
+  // 리액트에서 많이 쓰는 패턴..버튼 클릭시 실행될 때. ()=>
+  onClickBtn = choice => () => {
     const { imgCoord } = this.state;
     clearInterval(this.interval);
     const myScore = scores[choice];
@@ -108,13 +110,13 @@ class RPC extends Component {
       <>
         <div id='computer' style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0 ` }}></div>
         <div>
-          <button id='rock' className='btn' onClick={() => this.onClickBtn('rock')}>
+          <button id='rock' className='btn' onClick={this.onClickBtn('rock')}>
             Rock
           </button>
-          <button id='scissor' className='btn' onClick={() => this.onClickBtn('scissor')}>
+          <button id='scissor' className='btn' onClick={this.onClickBtn('scissor')}>
             Scissor
           </button>
-          <button id='paper' className='btn' onClick={() => this.onClickBtn('paper')}>
+          <button id='paper' className='btn' onClick={this.onClickBtn('paper')}>
             Paper
           </button>
         </div>
