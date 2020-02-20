@@ -1,0 +1,3 @@
+useReducer + contextAPI (small-sized App)
+
+Redux (large, complicated App) -> used to async 비동기 부분 처리를 위해 결국 리덕스를 써야 한다. 
