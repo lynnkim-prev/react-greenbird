@@ -15,32 +15,58 @@ function selectedNumbers() {
     shuffle.push(candidate.splice(Math.floor(Math.random() * candidate.length), 1)[0]);
   }
 
-  const winningNumber = shuffle.slice(0, 6).sort((a, b) => {
+  const winningNumberArr = shuffle.slice(0, 6).sort((a, b) => {
     return a - b;
   });
 
   const bonusNumber = shuffle.pop();
 
-  return { winningNumber: winningNumber, bonusNumber: bonusNumber };
+  return { winningNumberArr: winningNumberArr, bonusNumber: bonusNumber };
 }
 
 class Lotto extends Component {
   state = {
-    selectedNumberArr: selectedNumbers(),
-    winNumberArr: selectedNumbers().winningNumber,
-    bonusNumber: selectedNumbers().bonusNumber,
+    selectedNumbers: selectedNumbers(),
+    winningNumberArr: [],
+    bonusNumber: null,
     redo: false,
   };
+
+  timeouts = [];
+  // 여기서 숫자 하나씩 나오게.. 1번 .. 1, 2번... 1,2,3번...
+  componentDidMount() {
+    const { selectedNumbers } = this.state;
+
+    for (let i = 0; i < selectedNumbers.winningNumberArr.length; i++) {
+      this.timeouts[i] = setTimeout(() => {
+        this.setState(prevState => {
+          return { winningNumberArr: [...prevState.winningNumberArr, selectedNumbers.winningNumberArr[i]] };
+        });
+      }, (i + 1) * 1000);
+    }
+    this.timeouts[6] = setTimeout(() => {
+      this.setState({
+        bonusNumber: selectedNumbers.bonusNumber,
+        redo: true,
+      });
+    }, 7000);
+  }
+
+  componentWillUnmount() {
+    this.timeouts.forEach(v => {
+      clearTimeout(v);
+    });
+  }
 
   onClickRedo = () => {};
 
   render() {
-    const { winNumberArr, bonusNumber, redo } = this.state;
+    const { winningNumberArr, bonusNumber, redo } = this.state;
     return (
       <>
         <p>winning numbers</p>
         <div id='resultScreen'>
-          {winNumberArr.map(v => (
+          {winningNumberArr.map(v => (
             <Ball key={v} number={v} />
           ))}
         </div>
