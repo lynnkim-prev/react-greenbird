@@ -1,0 +1,45 @@
+<script>
+  // Lotto
+  /*
+  Array()   
+  fill()
+  map()
+  splice()
+  slice()
+  sort()
+  Math.floor()
+  Math.random()
+  push()
+  pop() 
+  */
+
+  // 45개의 숫자를 랜덤으로 섞은 다음 -> 맨 앞 6개 숫자가 winning number / 맨 뒤 1개 숫자가 bonus number
+
+  const candidate = Array(45)
+    .fill()
+    .map((v, i) => {
+      return i + 1;
+    });
+  console.log(candidate);
+  /*
+  Array(45): 크기 45개짜리 empty 어레이 만들어줌.
+  fill(): 빈 어레이를 인덱스: undefine 로 전체 채워주기
+  map():으로 어레이 리턴 (인덱스 값만 추출)
+  */
+
+  const shuffle = []; // Array(0)
+  while (candidate.length > 0) {
+    let randomNum = candidate.splice(Math.floor(Math.random() * candidate.length), 1)[0];
+    shuffle.push(randomNum);
+  }
+
+  const bonus = shuffle.pop();
+
+  const winningNumArr = shuffle.slice(0, 6).sort((a, b) => {
+    return a - b;
+  });
+
+  console.log('shuffle:', shuffle);
+  console.log('bonus:', bonus);
+  console.log('winningNumArr: ', winningNumArr);
+</script>
