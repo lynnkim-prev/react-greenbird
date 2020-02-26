@@ -28,7 +28,7 @@ const TicTacToe = () => {
   // const [winner, setWinner] = useState('');
   // const [turn, setTurn] = useState('0');
   // const [tableData, setTableData] = useState([['', '', ''], ['', '', ''], , ['', '', '']]);
-  
+
   const onClickTable = useCallback(() => {
     // dispatch - action. dispatch안에 들어가는건 action이라고 부름. action object.
     // dispatch한다 = action을 실행한다. conduct action
