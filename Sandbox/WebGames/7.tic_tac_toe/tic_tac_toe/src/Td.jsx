@@ -1,11 +1,7 @@
 import React from 'react';
 
 const Td = () => {
-  return (
-    <tr>
-      <td>{''}</td>
-    </tr>
-  );
+  return <td>{''}</td>;
 };
 
 export default Td;
