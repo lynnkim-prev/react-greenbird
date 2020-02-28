@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import Form from './Form';
 import Table from './Table';
 
-const initialState = {
+const initialState = { 
   tableData: [],
   timer: 0,
   result: 0,
