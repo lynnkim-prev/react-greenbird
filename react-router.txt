@@ -1,0 +1,32 @@
+$npm i react-router // 기본뼈대. react-router-dom이나 -native가 쓰는 뼈대
+$npm i react-router-dom // 웹에서 쓰는 라이브러리. 실제로 우리가 쓰는 것. 
+$npm i react-router-native // 앱에서 쓰는 라이브러리
+
+
+
+React같은 framework에서 웹사이트를 구성할 때, 
+실제로는 페이지가 하나 - single page application이지만, 
+페이지가 여러개인 척 눈속임을 하는 것.
+
+
+리액트 라우터가 가상으로 만들어낸 페이지 -> 그렇기 때문에 a tag로 href에 주소 넣어주면 에러난다. 
+그래서 Link to를 써야 하는 것 ..!! 아하 ~
+Route랑 Link는 한통속. (Link가 브라우저 상에서는 a태그로 나타나지만 실제로는 Link임 )
+Link로 가상의 주소를 만들어주는 것
+그래서 a로 하면 cannot get.. /해당링크 가 나오는것. 이건 서버로의 요청이기 때문에 서버는 몰라서. 
+서버: 어? 나 이거 몰라 .. /res_check.. 
+
+Link는 프론트엔드인 리액트 라우터만 알고 있는 것이기 때문이다. 
+
+
+주소: Browser, 프론트엔드 안에서만 주소들이 유효하다. 
+
+
+<Link>
+<BrowserRouter> = 새로고침하면 서버쪽에 요청이 가서 화면이 없어짐(서버: 나 몰라..)-> 서버가 안다는 전제 하에 검색엔진에 노출됨. - 서버가 알게 하려면 서버에 추가적인 세팅이 필요하다. (Express에 등록) 
+<HashRouter> = 새로고침해도 화면이 보인다. localhost:8080/#/lotto 해시 뒤에 부분은 클라이언트에서 안다. 
+
+검색엔진 로봇들이 돌아다니면서 정보들을 수집하는데, 로또 페이지 알아? 하고 '서버에'물어본다. 
+그럼 HashRouter쓴 앱: 나 모르는데;; 
+BrowserRouter: Express쓴 전제 하에 RGRG
+
