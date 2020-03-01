@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { MdDone, MdDelete } from "react-icons/md";
+import {MdDone, MdDelete} from "react-icons/all";
 
 // 좌측 체크 원
 const CheckCircle = styled.div`
@@ -44,7 +44,7 @@ const Remove = styled.div`
   color: #dee2e6;
   font-size: 24px;
   cursor: pointer;
-  &hover {
+  &:hover {
     color: #ff6b6b;
   }
 `;
@@ -55,7 +55,7 @@ const TodoItemBlock = styled.div`
   align-items: center;
   padding-top: 12px;
   padding-bottom: 12px;
-  &hover {
+  &:hover {
     ${Remove} {
       // 셀렉터 사용. 달러 괄호 괄호 -> Remove를 특정 상황에만 스타일을 넣어주고 싶을 때.
       opacity: 1;
