@@ -23,9 +23,7 @@ const initialTodos = [
   },
   {
     id: 5,
-    text: "Build functionalities'",
+    text: "Build functionalities",
     done: false
   }
 ];
-
-
