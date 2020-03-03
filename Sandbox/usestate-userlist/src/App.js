@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import CreateUser from "./CreateUser";
 import ListUser from "./ListUser";
+
+const countIsActive = users => {
+  return users.filter(user => user.isActive).length;
+};
 
 const App = () => {
   const [inputs, setInputs] = useState({
@@ -14,44 +18,72 @@ const App = () => {
       id: 1,
       username: "darin",
       email: "public.darin@gmail.com",
-      active: true
+      isActive: true
     },
     {
       id: 2,
       username: "lynn",
       email: "lynn@example.com",
-      active: false
+      isActive: false
     },
     {
       id: 3,
       username: "liz",
       email: "liz@example.com",
-      active: false
+      isActive: false
     }
   ]);
 
   const onChange = e => {
-    const [name, value] = e.target;
+    const { name, value } = e.target;
     setInputs({
       ...inputs,
       [name]: value
     });
   };
 
-  const onRegister = () => {};
+  const nextId = useRef(4);
 
-  const onRemove = () => {};
+  const onRegister = () => {
+    const user = {
+      id: nextId.current,
+      username,
+      email,
+      isActive: false
+    };
+    setUsers(users => users.concat(user));
+    setInputs({ username: "", email: "" });
+    nextId.current += 1;
+  };
+
+  const onRemove = id => {
+    setUsers(users => users.filter(user => user.id !== id));
+  };
+
+  const onToggle = id => {
+    setUsers(users =>
+      users.map(user =>
+        user.id === id ? { ...user, isActive: !user.isActive } : user
+      )
+    );
+  };
+
+  const activeUserNum = countIsActive(users);
 
   return (
     <>
+      <div>
+        input: {username} {email}
+      </div>
       <CreateUser
         username={username}
         email={email}
         onChange={onChange}
         onRegister={onRegister}
       />
-      <ListUser onRemove={onRemove} users={users} />
-      <div>{username} {email}</div>
+      <ListUser onRemove={onRemove} onToggle={onToggle} users={users} />
+
+      <div>is active: {activeUserNum}</div>
     </>
   );
 };
