@@ -1,120 +1,100 @@
-import React, { useState, useRef } from "react";
-import CreateUser from "./CreateUser";
-import ListUser from "./ListUser";
+import React, { useRef, useState, useMemo, useCallback } from 'react';
+import ListUser from './ListUser';
+import CreateUser from './CreateUser';
 
-const countIsActive = users => {
-  return users.filter(user => user.isActive).length;
-};
+function countActiveUsers(users) {
+  console.log('활성 사용자 수를 세는중...');
+  return users.filter(user => user.active).length;
+}
 
-const App = () => {
+
+function App() {
+
   const [inputs, setInputs] = useState({
-    username: "",
-    email: ""
+    username: '',
+    email: ''
   });
+
   const { username, email } = inputs;
+
+
+  const onChange = useCallback(e => {
+    const { name, value } = e.target;
+    setInputs(inputs => ({
+      ...inputs,
+      [name]: value
+    }));
+  }, []);
+
 
   const [users, setUsers] = useState([
     {
       id: 1,
-      username: "darin",
-      email: "public.darin@gmail.com",
-      isActive: true
+      username: 'velopert',
+      email: 'public.velopert@gmail.com',
+      active: true
     },
     {
       id: 2,
-      username: "lynn",
-      email: "lynn@example.com",
-      isActive: false
+      username: 'tester',
+      email: 'tester@example.com',
+      active: false
     },
     {
       id: 3,
-      username: "liz",
-      email: "liz@example.com",
-      isActive: false
+      username: 'liz',
+      email: 'liz@example.com',
+      active: false
     }
   ]);
 
-  const onChange = e => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value
-    });
-  };
 
   const nextId = useRef(4);
-
-  const onRegister = () => {
+  const onCreate = useCallback(() => {
     const user = {
       id: nextId.current,
       username,
-      email,
-      isActive: false
+      email
     };
     setUsers(users => users.concat(user));
-    setInputs({ username: "", email: "" });
+
+    setInputs({
+      username: '',
+      email: ''
+    });
     nextId.current += 1;
-  };
+  }, [username, email]);
 
-  const onRemove = id => {
+
+  const onRemove = useCallback(id => {
+    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
+    // = user.id 가 id 인 것을 제거함
     setUsers(users => users.filter(user => user.id !== id));
-  };
+  }, []);
 
-  const onToggle = id => {
+
+  const onToggle = useCallback(id => {
     setUsers(users =>
-      users.map(user =>
-        user.id === id ? { ...user, isActive: !user.isActive } : user
-      )
+        users.map(user =>
+            user.id === id ? { ...user, active: !user.active } : user
+        )
     );
-  };
+  }, []);
 
-  const activeUserNum = countIsActive(users);
 
+  const count = useMemo(() => countActiveUsers(users), [users]);
   return (
-    <>
-      <div>
-        input: {username} {email}
-      </div>
-      <CreateUser
-        username={username}
-        email={email}
-        onChange={onChange}
-        onRegister={onRegister}
-      />
-      <ListUser onRemove={onRemove} onToggle={onToggle} users={users} />
-
-      <div>is active: {activeUserNum}</div>
-    </>
+      <>
+        <CreateUser
+            username={username}
+            email={email}
+            onChange={onChange}
+            onCreate={onCreate}
+        />
+        <ListUser users={users} onRemove={onRemove} onToggle={onToggle} />
+        <div>활성사용자 수 : {count}</div>
+      </>
   );
-};
+}
 
 export default App;
-
-// pseudocode
-/*
-
-function
-- onCreate : id, username, email, isActive
-- onDelete :
-- onToggle : isActive 토글
-
-
-**********App (state) Component
-  CreateUser + UserList렌더링
-  state: inputs(username, email), users(id, username, email, isActive)
--onChange
-- onCreate : id, username, email, isActive
-- onDelete :
-- onToggle : isActive 토글
-
-**********CreateUser Component - 상단 input
-   -onChange
-  - onCreate : id, username, email, isActive
-  
-  
-**********UserList Component - 하단 디스플레이
-- onDelete :
-- onToggle : isActive 토글
-
-*
-* */
