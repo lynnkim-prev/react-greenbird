@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
-import {useTodoState} from "./TodoContext";
+import {useTodoState} from "../TodoContext";
 
 const TodoListBlock = styled.div`
   flex: 1;
@@ -10,8 +10,8 @@ const TodoListBlock = styled.div`
 `;
 
 const TodoList = () => {
-
-    const state = useTodoState;
+    const state = useTodoState()
+    console.log(state)
 
   return (
     <TodoListBlock>

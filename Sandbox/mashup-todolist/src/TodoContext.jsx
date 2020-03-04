@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useRef } from "react";
 
 const initialTodos = [
   {
@@ -47,24 +47,44 @@ const todoReducer = (state, action) => {
 
 const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
+const TodoNextIdContext = createContext();
 
 export const TodoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialTodos);
+  const nextId = useRef(6);
+
   return (
     <TodoStateContext.Provider value={state}>
       <TodoDispatchContext.Provider value={dispatch}>
-        {children}
+        <TodoNextIdContext.Provider value={nextId}>
+          {children}
+        </TodoNextIdContext.Provider>
       </TodoDispatchContext.Provider>
     </TodoStateContext.Provider>
   );
 };
 
-// custom hook
-
+// custom hooks for context (call anywhere needed)
 export const useTodoState = () => {
-  return useContext(TodoStateContext);
+  const context = useContext(TodoStateContext);
+  if (!context) {
+    throw new Error("Cannot find TodoStateContext Provider");
+  } // when there's no context. to check
+  return context;
 };
 
 export const useTodoDispatch = () => {
-  return useContext(TodoDispatchContext);
+  const context = useContext(TodoDispatchContext);
+  if (!context) {
+    throw new Error("Cannot find TodoDispatchContext Provider");
+  }
+  return context;
+};
+
+export const useTodoNextId = () => {
+  const context = useContext(TodoNextIdContext);
+  if (!context) {
+    throw new Error("Cannot find TodoNextIdContext Provider");
+  }
+  return context;
 };
