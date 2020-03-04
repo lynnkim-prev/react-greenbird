@@ -68,12 +68,46 @@ export const UserDispatch = createContext(null);
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const { users } = state;
+  const { username, email } = state.inputs;
+
+  console.log(state.inputs);
+
+  const onChange = useCallback(e => {
+    const { name, value } = e.target;
+    dispatch({
+      type: "CHANGE_INPUT",
+      name,
+      value
+    });
+  }, []);
+
+  const nextId = useRef(4);
+
+  const onCreate = useCallback(() => {
+    dispatch({
+      type: "CREATE_USER",
+      user: {
+        id: nextId.current,
+        username,
+        email,
+        active: false
+      }
+    });
+    nextId.current += 1;
+  }, [username, email]);
 
   const count = useMemo(() => countActiveUsers(users), [users]);
+  console.log(users);
   return (
     <UserDispatch.Provider value={dispatch}>
-      <CreateUser />
+      <CreateUser
+        username={username}
+        email={email}
+        onChange={onChange}
+        onCreate={onCreate}
+      />
       <ListUser users={users} />
       <div>num of active users : {count} </div>
     </UserDispatch.Provider>
