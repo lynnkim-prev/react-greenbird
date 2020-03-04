@@ -14,7 +14,7 @@ const initialTodos = [
   {
     id: 3,
     text: "Yawn",
-    done: true
+    done: false
   },
   {
     id: 4,
@@ -45,6 +45,7 @@ const todoReducer = (state, action) => {
   }
 };
 
+// state - dispatch each for optimization purpose
 const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
@@ -64,7 +65,7 @@ export const TodoProvider = ({ children }) => {
   );
 };
 
-// custom hooks for context (call anywhere needed)
+// custom hooks for context (easy to use. call anywhere needed)
 export const useTodoState = () => {
   const context = useContext(TodoStateContext);
   if (!context) {

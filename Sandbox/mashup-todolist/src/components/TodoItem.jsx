@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import {MdDone, MdDelete} from "react-icons/all";
+import { MdDone, MdDelete } from "react-icons/all";
+import { useTodoDispatch } from "../TodoContext";
 
 // 좌측 체크 원
 const CheckCircle = styled.div`
@@ -64,15 +65,25 @@ const TodoItemBlock = styled.div`
 `;
 
 const TodoItem = ({ id, done, text }) => {
+  const dispatch = useTodoDispatch();
+
+  const onToggle = () => {
+    dispatch({ type: "TOGGLE", id });
+  };
+
+  const onRemove =() => {
+    dispatch({ type: "REMOVE", id });
+  };
+
   return (
     <TodoItemBlock>
-      <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
+      <CheckCircle done={done} onClick={onToggle}>{done && <MdDone />}</CheckCircle>
       <Text done={done}>{text}</Text>
-      <Remove>
+      <Remove onClick={onRemove}>
         <MdDelete />
       </Remove>
     </TodoItemBlock>
   );
 };
 
-export default TodoItem;
+export default React.memo(TodoItem);
