@@ -50,6 +50,7 @@ const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 
+// providers to pass values
 export const TodoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialTodos);
   const nextId = useRef(6);

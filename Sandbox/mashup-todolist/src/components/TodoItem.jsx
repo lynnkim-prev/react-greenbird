@@ -3,19 +3,19 @@ import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from "react-icons/all";
 import { useTodoDispatch } from "../TodoContext";
 
-// 좌측 체크 원
+// check circle on the left
 const CheckCircle = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 16px;
   border: 1px solid #ced4da;
-  font-size: 24px; // icon 크기
+  font-size: 24px; // icon size
   display: flex;
-  align-items: center; // 체크 아이콘이 동그라미의 중앙에 나타나도록 함.
+  align-items: center; // centered check icon
   justify-content: center;
   margin-right: 20px;
   cursor: pointer;
-  // props.done이 있다면 css 불러오기.
+  // if prop.done exists, call css
   ${props =>
     props.done &&
     css`
@@ -24,7 +24,7 @@ const CheckCircle = styled.div`
     `}
 `;
 
-// 중간 텍스트
+// text in the middle
 const Text = styled.div`
   flex: 1;
   font-size: 21px;
@@ -36,7 +36,7 @@ const Text = styled.div`
     `}
 `;
 
-// 우측 쓰레기통 아이콘
+// trash bin on the right side
 const Remove = styled.div`
   opacity: 0;
   display: flex;
@@ -50,7 +50,7 @@ const Remove = styled.div`
   }
 `;
 
-// 세개 묶음
+// block for CheckCircle, Text, Remove
 const TodoItemBlock = styled.div`
   display: flex;
   align-items: center;
@@ -58,7 +58,7 @@ const TodoItemBlock = styled.div`
   padding-bottom: 12px;
   &:hover {
     ${Remove} {
-      // 셀렉터 사용. 달러 괄호 괄호 -> Remove를 특정 상황에만 스타일을 넣어주고 싶을 때.
+      // selector $curlyCurly. -> when to put Remove styled div at a particular situation (on hover)
       opacity: 1;
     }
   }
@@ -71,13 +71,15 @@ const TodoItem = ({ id, done, text }) => {
     dispatch({ type: "TOGGLE", id });
   };
 
-  const onRemove =() => {
+  const onRemove = () => {
     dispatch({ type: "REMOVE", id });
   };
 
   return (
     <TodoItemBlock>
-      <CheckCircle done={done} onClick={onToggle}>{done && <MdDone />}</CheckCircle>
+      <CheckCircle done={done} onClick={onToggle}>
+        {done && <MdDone />}
+      </CheckCircle>
       <Text done={done}>{text}</Text>
       <Remove onClick={onRemove}>
         <MdDelete />
