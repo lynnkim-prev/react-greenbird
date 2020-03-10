@@ -3,7 +3,7 @@
     "ecmaVersion": 2019,
     "sourceType": "module" /* import, export, require */,
     "ecmaFeatures": {
-      "jsx": true /* jsx가 html이나 xml쓰면 안된다는거 허용해주기 */
+      "jsx": true /* jsx가 올바른 자바스크립트 문법이 아니라서 eslint가 경고를 하는데, eslint에게 허용해주기 */
     }
   },
   "env": {
@@ -18,10 +18,6 @@
   "plugins": [
     /* eslint가 기본적으로 react hooks, import export등을 지원하지 않기 때문에 지원하기 위해서 플러그인 설치*/
     "import",
-    "react-hooks",
-    "prettier"
-  ],
-  "rules": {
-    "prettier/prettier": "error"
-  }
+    "react-hooks"
+  ]
 }
