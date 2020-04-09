@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Form, Input, Button } from 'antd';
-import Link from 'next/link'
+import Link from 'next/link';
 import { useInput } from '../pages/signup';
 
 const LoginForm = () => {
@@ -15,7 +15,7 @@ const LoginForm = () => {
   );
 
   return (
-    <Form onSubmit={onSubmitForm}>
+    <Form onSubmit={onSubmitForm} style={{ padding: '10px' }}>
       <div>
         <label htmlFor="user-id">Id</label>
         <br />

@@ -31,7 +31,7 @@ const AppLayout = ({ children }) => {
         </Menu.Item>
       </Menu>
 
-      <Row>
+      <Row gutter={8}>
         {dummy.isLoggedIn ? (
           // 모바일 화면에서 24grid전체 차지, 작은 화면에서 6 12 6만큼 차지
           <Col xs={24} md={6}>
