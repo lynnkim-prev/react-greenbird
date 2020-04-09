@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Menu, Input, Button, Row, Col, Card, Avatar, Form, Checkbox } from 'antd';
 import Link from 'next/link';
 import LoginForm from './LoginForm';
+import UserProfile from "./UserProfile";
 
 const dummy = {
   nickname: 'LynnKim',
@@ -32,47 +33,20 @@ const AppLayout = ({ children }) => {
       </Menu>
 
       <Row gutter={8}>
-        {dummy.isLoggedIn ? (
-          // 모바일 화면에서 24grid전체 차지, 작은 화면에서 6 12 6만큼 차지
-          <Col xs={24} md={6}>
-            {/*User Cards on left side*/}
-            <Card
-              actions={[
-                <div key="tweet">
-                  Tweets
-                  <br />
-                  {dummy.Post.length}
-                </div>,
-                <div key="following">
-                  Followings
-                  <br />
-                  {dummy.Followings.length}
-                </div>,
-                <div key="follower">
-                  Followers
-                  <br />
-                  {dummy.Followers.length}
-                </div>
-              ]}
-            >
-              {/*user data*/}
-              <Card.Meta
-                avatar={<Avatar>{dummy.nickname[0]}</Avatar>} // L
-                title={dummy.nickname} // LynnKim
-              />
-            </Card>
+        {/* 모바일 화면에서 24grid전체 차지, 작은 화면에서 6 12 6만큼 차지*/}
+        {/*User Cards on left side*/}
+        <Col xs={24} md={6}>
+        {dummy.isLoggedIn
+            ? <UserProfile />
+            : <LoginForm />}
           </Col>
-        ) : (
-          <Col xs={24} md={6}>
-            {/*Login form & Sign up button*/}
-            <LoginForm />
-          </Col>
-        )}
 
         <Col xs={24} md={12}>
           {children}
         </Col>
-        <Col xs={24} md={6}></Col>
+        <Col xs={24} md={6}>
+          <Link href="#" ><a target="_blank">Made by LynnDarinKim</a></Link>
+        </Col>
       </Row>
     </div>
   );
