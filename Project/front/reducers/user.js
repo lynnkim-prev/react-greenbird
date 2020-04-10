@@ -1,4 +1,4 @@
-const initialState = {
+export const initialState = {
     isLoggedIn: false,
     user: {}
 };
@@ -6,14 +6,14 @@ const initialState = {
 const LOG_IN = 'LOG_IN'; // 액션의 이름
 const LOG_OUT = 'LOG_OUT';
 
-const loginAction = {
+export const loginAction = {
     type: LOG_IN,
     data: {
         nickname: 'Green'
     }
 };
 
-const logoutAction = {
+export const logoutAction = {
     type: LOG_OUT
 };
 
@@ -37,3 +37,5 @@ const reducer = (state = initialState, action) => {
         }
     }
 };
+
+export default reducer;

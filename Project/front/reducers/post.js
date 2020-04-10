@@ -1,15 +1,17 @@
-const initialState = {
+// store
+export const initialState = {
     mainPosts: []
 };
 
 const ADD_POST = 'ADD_POST';
 const ADD_DUMMY = 'ADD_DUMMY';
 
-const addPost = {
+// action
+export const addPostAction = {
     type: ADD_POST
 };
 
-const addDummy = {
+export const addDummyAction = {
     type: ADD_DUMMY,
     data: {
         content: 'Hello',
@@ -20,6 +22,7 @@ const addDummy = {
     },
 };
 
+// reducer
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {
@@ -37,3 +40,5 @@ const reducer = (state = initialState, action) => {
         }
     }
 };
+
+export default reducer
